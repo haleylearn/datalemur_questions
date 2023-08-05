@@ -54,7 +54,8 @@ WITH table_no_activity_chat AS (
     , SUM(CASE WHEN activity_type = 'open' THEN time_spent ELSE 0 END) AS total_time_open
     , SUM(time_spent) AS total_time
   FROM table_no_activity_chat
-  GROUP BY age_bucket
+  GROUP BY 
+    age_bucket
 )
 
 SELECT age_bucket
