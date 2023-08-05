@@ -1,3 +1,4 @@
+/*
 QUESTION 1: Uber
 
 Title : User’s Third Transaction
@@ -20,8 +21,9 @@ Expected:
 | 121     | 67.90  | 04/03/2022 12:00:00    |
 | 263     | 100.00 | 07/12/2022 12:00:00    |
 
--- Solution 1: Using Window Function And CTE 
+*/
 
+---------- SOLUTION 1: Using Window Function And CTE ----------
 WITH transaction_rank AS (
   SELECT *
     , ROW_NUMBER() OVER(PARTITION BY user_id) AS rank_
@@ -34,7 +36,7 @@ SELECT user_id
 FROM transaction_rank t
 WHERE t.rank_ = 3
 
--- Solution 2: Using Having Count
+---------- SOLUTION 2: Using Having Count ----------
 SELECT t1.user_id
      , t1.spend
      , t1.transaction_date
@@ -45,7 +47,7 @@ GROUP BY t1.user_id
         , t1.transaction_date
 HAVING COUNT(t2.transaction_date) = 2;
 
--- Solution 3: Using SUM()
+---------- SOLUTION 3: Using SUM() ----------
 WITH src AS (
     SELECT t1.user_id
         , t1.spend
